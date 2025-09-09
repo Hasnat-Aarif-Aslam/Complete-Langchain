@@ -15,7 +15,7 @@ document = [
     
 ]
 
-query = 'tell me about todas weather'
+query = 'tell me about todays weather'
 
 
 doc_embed = embeddings.embed_documents(document)
