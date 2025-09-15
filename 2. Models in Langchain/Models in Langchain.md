@@ -7,13 +7,3 @@
 
 **Plan of Action**
 <img width="1352" height="700" alt="image" src="https://github.com/user-attachments/assets/d93fb567-757f-4c23-8b5e-1ee6a05b7ec8" />
-
-
-
-****
-****
-****
-****
-****
-****
-****
