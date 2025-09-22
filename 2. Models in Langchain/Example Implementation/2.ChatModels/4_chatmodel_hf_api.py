@@ -1,9 +1,8 @@
-from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+from langchain_huggingface import HuggingFaceEndpoint
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
-
 HF_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 
 llm = HuggingFaceEndpoint(
@@ -13,10 +12,13 @@ llm = HuggingFaceEndpoint(
     max_new_tokens=64,
     temperature=0.0,
     do_sample=False,
-    return_full_text=False,   # only return the model’s answer, not your prompt
+    return_full_text=False,
 )
 
-model = ChatHuggingFace(llm=llm)
-
-result = model.invoke("What is the capital of Pakistan?")
-print(result.content)
+while True:
+    user_input = input("You: ")
+    if user_input.lower() in ['exit', 'quit']:
+        print("Exiting the chat. Goodbye!")
+        break
+    result = llm.invoke(user_input)
+    print("Bot:", result)
