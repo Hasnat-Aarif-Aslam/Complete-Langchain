@@ -18,10 +18,15 @@ llm = HuggingFaceEndpoint(
 # Wrap inside ChatHuggingFace for chatbot-like behavior
 chat_model = ChatHuggingFace(llm=llm)
 
+# Maintaining chat history so our model has context
+chat_history = []
+
 while True:
     user_input = input("You: ")
+    chat_history.append(user_input)
     if user_input.lower() in ["exit", "quit"]:
         print("Exiting chatbot...")
         break
-    response = chat_model.invoke(user_input)
+    response = chat_model.invoke(chat_history)
+    chat_history.append(response.content) # we have appended both user and bot messages, but we havent specified who said what, and this is an issue.
     print("Bot:", response.content)
