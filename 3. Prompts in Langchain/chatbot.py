@@ -1,4 +1,5 @@
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from dotenv import load_dotenv
 import os
 
@@ -19,14 +20,18 @@ llm = HuggingFaceEndpoint(
 chat_model = ChatHuggingFace(llm=llm)
 
 # Maintaining chat history so our model has context
-chat_history = []
+chat_history = [
+    SystemMessage(content="You are a helpful assistant.")
+]
 
 while True:
     user_input = input("You: ")
-    chat_history.append(user_input)
+    chat_history.append(HumanMessage(content = user_input))
     if user_input.lower() in ["exit", "quit"]:
         print("Exiting chatbot...")
         break
     response = chat_model.invoke(chat_history)
-    chat_history.append(response.content) # we have appended both user and bot messages, but we havent specified who said what, and this is an issue.
+    chat_history.append(AIMessage(content = response.content))
     print("Bot:", response.content)
+
+print("Chat session ended. Here is the full chat history:", chat_history)
